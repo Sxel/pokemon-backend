@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express';
 import axios from 'axios';
-import { PokemonData } from './src/interfaces/pokemonInterface'; 
-
+import { PokemonData } from './src/interfaces/pokemonInterface';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,13 +9,14 @@ const cors = require('cors');
 
 app.use(cors());
 
+// Constante para la URL base de la PokeAPI llevar a env
+const POKEAPI_BASE_URL = 'https://pokeapi.co/api/v2';
 
-// Endpoint para obtener todos los Pokémon con su nombre, tipo y foto
+// Utilizando la constante para obtener todos los Pokémon con su nombre, tipo y foto
 app.get('/pokemon', async (req: Request, res: Response) => {
   try {
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=10`);
+    const response = await axios.get(`${POKEAPI_BASE_URL}/pokemon?limit=10`);
     const pokemonList = response.data.results;
-
     let pokemonDetailsList: { name: string, types: string[], imageUrl: string }[] = [];
 
     for (const pokemon of pokemonList) {
@@ -28,13 +28,12 @@ app.get('/pokemon', async (req: Request, res: Response) => {
 
     res.json(pokemonDetailsList);
   } catch (error) {
-
     console.error('Error al obtener detalles de los Pokémon:', error);
     res.status(500).json({ error: 'Error al obtener detalles de los Pokémon' });
   }
 });
 
-// Endpoint para buscar y filtrar Pokémon por nombre o tipo
+// Utilizando la constante para buscar y filtrar Pokémon por nombre o tipo
 app.get('/search', async (req: Request, res: Response) => {
   const { name, type } = req.query; // Obtener parámetros de búsqueda
 
@@ -43,13 +42,13 @@ app.get('/search', async (req: Request, res: Response) => {
 
     if (name) {
       // Realizar búsqueda por nombre si se proporciona el parámetro 'name'
-      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+      const response = await axios.get(`${POKEAPI_BASE_URL}/pokemon/${name}`);
       const pokemonData: PokemonData = response.data;
       const imageUrl = pokemonData.sprites.front_default;
       searchResults.push({ name: pokemonData.name, types: pokemonData.types.map((type: any) => type.type.name), imageUrl });
     } else if (type) {
       // Realizar búsqueda por tipo si se proporciona el parámetro 'type'
-      const response = await axios.get(`https://pokeapi.co/api/v2/type/${type}`);
+      const response = await axios.get(`${POKEAPI_BASE_URL}/type/${type}`);
       const typeData = response.data;
       for (const pokemon of typeData.pokemon) {
         const response = await axios.get(pokemon.pokemon.url);
@@ -69,12 +68,11 @@ app.get('/search', async (req: Request, res: Response) => {
   }
 });
 
-
-/// Endpoint para obtener detalles completos de un Pokémon por su nombre
+// Utilizando la constante para obtener detalles completos de un Pokémon por su nombre
 app.get('/pokemon/:name/details', async (req: Request, res: Response) => {
   const { name } = req.params;
   try {
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    const response = await axios.get(`${POKEAPI_BASE_URL}/pokemon/${name}`);
     
     const pokemonData = {
       name: response.data.name,
@@ -91,8 +89,6 @@ app.get('/pokemon/:name/details', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Error al obtener detalles completos del Pokémon' });
   }
 });
-
-
 
 app.listen(PORT, () => {
   console.log(`Servidor Express iniciado en el puerto ${PORT}`);
