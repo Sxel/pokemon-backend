@@ -2,6 +2,9 @@ import express, { Request, Response } from 'express';
 import axios from 'axios';
 import { PokemonData } from './src/interfaces/pokemonInterface'; 
 
+import { swaggerSpec } from './src/swagger/swaggerConfig';
+import swaggerUi from 'swagger-ui-express';
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -91,6 +94,8 @@ app.get('/pokemon/:name/details', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Error al obtener detalles completos del Pokémon' });
   }
 });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 
