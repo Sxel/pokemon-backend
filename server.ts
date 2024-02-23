@@ -2,8 +2,8 @@ import express, { Request, Response } from 'express';
 import axios from 'axios';
 import { PokemonData } from './src/interfaces/pokemonInterface'; 
 
-import { swaggerSpec } from './src/swagger/swaggerConfig';
 import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './src/swagger/swaggerConfig'; // Importa swaggerSpec correctamente
 
 
 const app = express();

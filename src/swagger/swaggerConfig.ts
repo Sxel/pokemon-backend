@@ -1,4 +1,4 @@
-const swaggerJSDoc = require('swagger-jsdoc');
+import swaggerJSDoc from 'swagger-jsdoc';
 
 const options = {
   definition: {
@@ -12,6 +12,6 @@ const options = {
   apis: ['./server.ts'], // Ruta donde se encuentran tus definiciones de endpoints
 };
 
-export const swaggerSpec = swaggerJSDoc(options);
+const swaggerSpec = swaggerJSDoc(options);
 
-module.exports = swaggerSpec;
+export { swaggerSpec }; // Exporta swaggerSpec como un módulo nombrado
