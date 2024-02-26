@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getPokemonDetails } from '../services/pokeapiService';
+import { getPokemonDetails } from '../services/pokemonDetailsService';
 
 
 export async function getPokemonDetailsController(req: Request, res: Response) {
