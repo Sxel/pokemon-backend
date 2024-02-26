@@ -9,7 +9,7 @@ const options = {
       description: 'API para acceder a datos de Pokémon.',
     },
   },
-  apis: ['./server.ts'], // Ruta donde se encuentran tus definiciones de endpoints
+  apis: ['./src/routes/pokemonRoutes.ts'], // Verifica que esta ruta sea correcta
 };
 
 const swaggerSpec = swaggerJSDoc(options);
