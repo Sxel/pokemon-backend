@@ -8,7 +8,7 @@ export async function getPokemonDetails(name: string): Promise<PokemonDetails> {
     const response = await axios.get(`${POKEAPI_BASE_URL}/pokemon/${name}`);
     const pokemonDetails: PokemonDetails = response.data;
     const types: string[] = pokemonDetails.types.map((type: any) => type.type.name);
-    const type: string = types.join(', '); // Convertir la matriz de tipos en una cadena separada por comas
+    const type: string = types.join(', '); 
 
     return {
       name: pokemonDetails.name,

@@ -10,7 +10,6 @@ export async function getPokemonList(limit: number = 10): Promise<PokemonData[]>
       const pokemonDetailsResponse = await axios.get(pokemon.url);
       const pokemonDetails: PokemonData = pokemonDetailsResponse.data;
       
-      // Verificar si sprites es undefined y asignar un valor predeterminado para imageUrl
       const imageUrl = pokemonDetails.sprites ? pokemonDetails.sprites.front_default : '';
       
       return {
