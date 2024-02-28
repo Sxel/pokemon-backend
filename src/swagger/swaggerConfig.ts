@@ -9,9 +9,9 @@ const options = {
       description: 'API para acceder a datos de Pokémon.',
     },
   },
-  apis: ['./src/routes/pokemonRoutes.ts'], // Verifica que esta ruta sea correcta
+  apis: ['./src/routes/pokemonRoutes.ts'], 
 };
 
 const swaggerSpec = swaggerJSDoc(options);
 
-export { swaggerSpec }; // Exporta swaggerSpec como un módulo nombrado
+export { swaggerSpec }; 
